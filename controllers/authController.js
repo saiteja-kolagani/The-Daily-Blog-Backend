@@ -24,7 +24,7 @@ const login = (req, res) => {
     bcrypt.compare(password, user.password, (err, isMatch) => {
       if (err || !isMatch) return res.status(400).json({ error: 'Invalid username or password' });
 
-      const token = jwt.sign({ id: user.id, username: user.username }, 'your_jwt_secret', { expiresIn: '1h' });
+      const token = jwt.sign({ id: user.id, username: user.username }, process.env.SECRET_KEY, { expiresIn: '1h' });
       res.json({ message: 'Login successful', token });
     });
   });

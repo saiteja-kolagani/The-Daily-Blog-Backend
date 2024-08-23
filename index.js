@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv')
 const authRoutes = require('./routes/authRoutes');
+const postRoutes = require('./routes/postRoutes');
 
 const app = express();
 
@@ -10,6 +11,7 @@ dotenv.config()
 app.use(bodyParser.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api', postRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
