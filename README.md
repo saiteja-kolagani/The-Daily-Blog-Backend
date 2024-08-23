@@ -34,7 +34,7 @@ This is the backend for **The Daily Blog**, a blogging platform built with Node.
 3. Create a `.env` file in the root directory and add your environment variables:
 
    ```bash
-   JWT_SECRET=your_jwt_secret
+   SECRET_KEY=your_secret_key
    ```
 
 4. Start the development server:
