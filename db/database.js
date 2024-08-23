@@ -25,6 +25,7 @@ db.serialize(() => {
     content TEXT,
     created_at TEXT,
     user_id INTEGER,
+    user_name TEXT,
     FOREIGN KEY(user_id) REFERENCES users(id)
   )`);
 });

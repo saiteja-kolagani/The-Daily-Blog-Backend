@@ -18,8 +18,9 @@ const getPost = (req, res) => {
 const createNewPost = (req, res) => {
   const { title, content } = req.body;
   const userId = req.user.id;
+  const username = req.user.username;
 
-  createPost(title, content, userId, (err) => {
+  createPost(title, content, userId, username, (err) => {
     if (err) return res.status(500).json({ error: 'Failed to create post' });
     res.status(201).json({ message: 'Post created successfully' });
   });

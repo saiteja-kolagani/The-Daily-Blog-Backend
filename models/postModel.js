@@ -8,9 +8,9 @@ const getPostById = (id, callback) => {
   db.get(`SELECT * FROM posts WHERE id = ?`, [id], callback);
 };
 
-const createPost = (title, content, userId, callback) => {
-  db.run(`INSERT INTO posts (title, content, created_at, user_id) VALUES (?, ?, datetime('now'), ?)`,
-    [title, content, userId], callback);
+const createPost = (title, content, userId, username, callback) => {
+  db.run(`INSERT INTO posts (title, content, created_at, user_id, user_name) VALUES (?, ?, datetime('now'), ?, ?)`,
+    [title, content, userId, username], callback);
 };
 
 const updatePost = (id, title, content, callback) => {
