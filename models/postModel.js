@@ -21,10 +21,16 @@ const deletePost = (id, callback) => {
   db.run(`DELETE FROM posts WHERE id = ?`, [id], callback);
 };
 
+const getPostByUser = (id, callback) => {
+  db.all(`SELECT posts.*, users.username FROM posts JOIN users ON posts.user_id = users.id WHERE posts.user_id = ?`,
+  [id], callback);
+}
+
 module.exports = {
   getAllPosts,
   getPostById,
   createPost,
   updatePost,
-  deletePost
+  deletePost,
+  getPostByUser
 };

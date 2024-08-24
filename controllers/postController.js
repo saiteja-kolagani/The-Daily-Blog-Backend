@@ -1,4 +1,4 @@
-const { getAllPosts, getPostById, createPost, updatePost, deletePost } = require('../models/postModel');
+const { getAllPosts, getPostById, createPost, updatePost, deletePost, getPostByUser } = require('../models/postModel');
 
 const getPosts = (req, res) => {
   getAllPosts((err, posts) => {
@@ -14,6 +14,23 @@ const getPost = (req, res) => {
     res.json(post);
   });
 };
+
+const getUserPosts = (req, res) => {
+  const userId = req.user.id;
+
+  getPostByUser(userId, (err, posts) => {
+    if (err) {
+      console.error('Error fetching posts for user:', err);
+      return res.status(500).json({ error: 'Database error.' });
+    }
+    if (!posts.length) {
+      console.log('No posts found for user ID:', userId);
+      return res.status(404).json({ error: 'No posts found.' });
+    }
+    res.json(posts);
+  });
+};
+
 
 const createNewPost = (req, res) => {
   const { title, content } = req.body;
@@ -50,5 +67,6 @@ module.exports = {
   getPost,
   createNewPost,
   updateExistingPost,
-  deleteExistingPost
+  deleteExistingPost,
+  getUserPosts
 };
