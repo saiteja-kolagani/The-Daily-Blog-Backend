@@ -1,4 +1,5 @@
 const db = require('../db/database');
+const { format } = require('date-fns');
 
 const getAllPosts = (callback) => {
   db.all(`SELECT * FROM posts`, callback);
@@ -9,8 +10,11 @@ const getPostById = (id, callback) => {
 };
 
 const createPost = (title, content, userId, username, callback) => {
-  db.run(`INSERT INTO posts (title, content, created_at, user_id, user_name) VALUES (?, ?, datetime('now'), ?, ?)`,
-    [title, content, userId, username], callback);
+  const now = new Date();
+  const createdAt = format(now, 'yyyy-MM-dd HH:mm:ss');
+  
+  db.run(`INSERT INTO posts (title, content, created_at, user_id, user_name) VALUES (?, ?, ?, ?, ?)`,
+    [title, content, createdAt, userId, username], callback);
 };
 
 const updatePost = (id, title, content, callback) => {
